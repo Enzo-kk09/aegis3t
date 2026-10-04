@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#061c4e">
+    <meta name="description" content="Laboratório local AEGIS para testar identificação facial, precisão e desempenho.">
+    <title>
+      Developer Test · AEGIS
+    </title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23061c4e'/%3E%3Cpath d='M16 5 7 9v7c0 6 9 11 9 11s9-5 9-11V9Z' fill='none' stroke='%233a88f3' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="./style.css?v=6">
+    <script src="./DeveloperTest.js?v=6" defer>
+    </script>
+  </head>
+  <body class="dev-page">
+    <a class="skip-link" href="#main">
+      Pular para o conteúdo
+    </a>
+    <div class="app-shell">
+      <button class="sidebar-scrim" id="dev-menu-scrim" aria-label="Fechar menu">
+      </button>
+      <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+        <button class="icon-button sidebar-close" id="dev-menu-close" aria-label="Fechar menu">
+          ✕
+        </button>
+        <header class="sidebar-brand">
+          <a class="brand dev-brand" href="DadosGerais.html">
+            <span class="dev-brand-shield" aria-hidden="true">
+              <svg viewBox="0 0 32 36" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 2 3 7v10c0 9 13 16 13 16s13-7 13-16V7Z"/>
+                <path d="m10 17 4 4 8-9"/>
+              </svg>
+            </span>
+            <span>
+              <span class="brand-name">
+                AEGIS
+              </span>
+              <span class="brand-sub">
+                Advanced Educational Guardian
+                <br>
+                Intelligence System
+              </span>
+            </span>
+          </a>
+        </header>
+        <p class="nav-section">
+          Principal
+        </p>
+        <nav class="side-nav" aria-label="Menu principal">
+          <a class="nav-item" href="DadosGerais.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+            Dados gerais
+          </a>
+          <a class="nav-item" href="Identificacoes.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/>
+              <circle cx="12" cy="9" r="3"/>
+              <path d="M7 18v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/>
+            </svg>
+            Identificações
+          </a>
+          <a class="nav-item" href="Eventos.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M3 12h4l3-8 4 16 3-8h4"/>
+            </svg>
+            Eventos
+          </a>
+          <a class="nav-item" href="Alunos.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M2 21v-3a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v3m1-18a4 4 0 0 1 0 8m2 3a5 5 0 0 1 3 4v3"/>
+            </svg>
+            Alunos
+          </a>
+        </nav>
+        <div class="side-divider">
+        </div>
+        <p class="nav-section">
+          Desenvolvimento
+        </p>
+        <nav class="side-nav" aria-label="Desenvolvimento">
+          <a class="nav-item active" href="DeveloperTest.html" aria-current="page">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/>
+            </svg>
+            Developer Test
+          </a>
+        </nav>
+        <div class="side-divider">
+        </div>
+        <p class="nav-section">
+          Instituição
+        </p>
+        <nav class="side-nav" aria-label="Administração">
+          <a class="nav-item" href="Configuracoes.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="m9 3-1 3-3 1-2 3 2 2-1 3 2 3 3-1 3 2 3-2 3 1 2-3-1-3 2-2-2-3-3-1-1-3Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            Configurações
+          </a>
+          <a class="nav-item" href="Suporte.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9.5 8a2.5 2.5 0 1 1 4 2c-1.5 1-1.5 1.5-1.5 3m0 3h.01"/>
+            </svg>
+            Ajuda
+          </a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sync-panel">
+            <span class="eyebrow">
+              Ambiente de teste
+            </span>
+            <p class="dev-sidebar-note">
+              Processamento local
+              <br>
+              YuNet + SFace
+            </p>
+            <small>
+              Sem integração escolar
+            </small>
+          </div>
+          <p>
+            AEGIS · Developer Test
+          </p>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar dev-topbar">
+          <button class="icon-button mobile-menu" id="dev-menu-open" aria-label="Abrir menu principal" aria-expanded="false" aria-controls="sidebar">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          <span class="dev-breadcrumb">
+            AEGIS
+            <span aria-hidden="true">
+              /
+            </span>
+            Laboratório
+          </span>
+          <div class="dev-topbar-end">
+            <span class="dev-status-pill" id="dev-health-badge" data-status="offline">
+              <span class="dev-status-dot" aria-hidden="true">
+              </span>
+              <span id="dev-health-label">
+                Conectando…
+              </span>
+            </span>
+            <span class="avatar" id="dev-avatar">
+              DT
+            </span>
+          </div>
+        </header>
+        <main class="main-content dev-main" id="main" tabindex="-1" aria-labelledby="page-title">
+          <header class="page-heading">
+            <div>
+              <span class="eyebrow">
+                Laboratório de reconhecimento facial
+              </span>
+              <h1 id="page-title">
+                Developer Test
+              </h1>
+              <p>
+                Cadastre seu rosto, teste a câmera e compare precisão com velocidade.
+              </p>
+            </div>
+            <span class="dev-local-tag">
+              <span aria-hidden="true">
+                ⌘
+              </span>
+              Teste local
+            </span>
+          </header>
+          <div class="dev-alert" id="dev-message" role="status" aria-live="polite" hidden>
+          </div>
+          <section class="panel dev-setup" id="dev-setup" aria-labelledby="dev-setup-title" hidden>
+            <div>
+              <h2 id="dev-setup-title">
+                Inicie o laboratório Python
+              </h2>
+              <p id="dev-setup-message">
+                Abra esta página pelo servidor local para conectar o reconhecimento facial.
+              </p>
+            </div>
+            <div class="dev-setup-commands">
+              <code>
+                .\Setup-DeveloperTest.cmd
+              </code>
+              <code>
+                .\Start-DeveloperTest.cmd
+              </code>
+              <a href="http://127.0.0.1:8765/DeveloperTest.html">
+                Abrir em 127.0.0.1:8765
+              </a>
+            </div>
+            <button class="btn small" id="dev-reconnect">
+              Reconectar
+            </button>
+          </section>
+          <section class="dev-kpis" aria-label="Indicadores de desempenho">
+            <article class="panel dev-kpi">
+              <span class="dev-kpi-label">
+                Taxa de análise
+              </span>
+              <strong>
+                <span id="dev-fps">
+                  —
+                </span>
+                <small>
+                  FPS
+                </small>
+              </strong>
+              <span class="dev-kpi-note">
+                Até 5 análises/s · vídeo independente
+              </span>
+            </article>
+            <article class="panel dev-kpi">
+              <span class="dev-kpi-label">
+                Resposta completa
+              </span>
+              <strong>
+                <span id="dev-latency">
+                  —
+                </span>
+                <small>
+                  ms
+                </small>
+              </strong>
+              <span class="dev-kpi-note">
+                Captura, envio e resposta
+              </span>
+            </article>
+            <article class="panel dev-kpi">
+              <span class="dev-kpi-label">
+                Processamento Python
+              </span>
+              <strong>
+                <span id="dev-server-time">
+                  —
+                </span>
+                <small>
+                  ms
+                </small>
+              </strong>
+              <span class="dev-kpi-note" id="dev-stage-times">
+                Detecção + reconhecimento
+              </span>
+            </article>
+            <article class="panel dev-kpi">
+              <span class="dev-kpi-label">
+                Perfis cadastrados
+              </span>
+              <strong id="dev-profile-count">
+                —
+              </strong>
+              <span class="dev-kpi-note">
+                Armazenados neste computador
+              </span>
+            </article>
+          </section>
+          <div class="dev-workbench">
+            <section class="panel dev-camera-panel" aria-labelledby="dev-camera-title">
+              <header class="dev-panel-heading">
+                <div>
+                  <h2 id="dev-camera-title">
+                    Identificação em tempo real
+                  </h2>
+                  <p>
+                    Uma análise por vez, com resultados reais do modelo.
+                  </p>
+                </div>
+                <span class="badge" id="dev-camera-state">
+                  Câmera desligada
+                </span>
+              </header>
+              <div class="dev-camera-stage" id="dev-camera-stage">
+                <video id="dev-video" autoplay playsinline muted aria-label="Vídeo da câmera local">
+                </video>
+                <canvas id="dev-overlay" aria-hidden="true">
+                </canvas>
+                <div class="dev-camera-empty" id="dev-camera-empty">
+                  <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M8 20h12l5-8h14l5 8h12v34H8Z"/>
+                    <circle cx="32" cy="36" r="11"/>
+                  </svg>
+                  <strong>
+                    Sua câmera, seu teste
+                  </strong>
+                  <p>
+                    Cadastre um perfil e inicie a câmera.
+                    <br>
+                    A identificação aparece sobre o vídeo.
+                  </p>
+                </div>
+                <span class="dev-stage-label" id="dev-stage-label">
+                  Aguardando câmera
+                </span>
+              </div>
+              <div class="dev-camera-controls">
+                <div class="field dev-device-field">
+                  <label for="dev-device">
+                    Câmera
+                  </label>
+                  <select class="input" id="dev-device">
+                    <option value="">
+                      Câmera padrão
+                    </option>
+                  </select>
+                </div>
+                <button class="btn primary" id="dev-start" disabled>
+                  Iniciar câmera
+                </button>
+                <button class="btn" id="dev-stop" disabled>
+                  Parar
+                </button>
+              </div>
+              <div class="dev-settings">
+                <div class="field">
+                  <label for="dev-scale">
+                    Escala de detecção
+                  </label>
+                  <select class="input" id="dev-scale">
+                    <option value="1">
+                      100% · original
+                    </option>
+                    <option value="0.5" selected>
+                      50% · metade
+                    </option>
+                    <option value="0.25">
+                      25% · um quarto
+                    </option>
+                    <option value="0.1">
+                      10% · experimental
+                    </option>
+                  </select>
+                  <small>
+                    Reduz só a detecção; o rosto é analisado na imagem original.
+                  </small>
+                </div>
+                <div class="field">
+                  <label for="dev-threshold">
+                    Limiar de similaridade
+                    <output id="dev-threshold-value" for="dev-threshold">
+                      0,45
+                    </output>
+                  </label>
+                  <input id="dev-threshold" type="range" min="0.30" max="0.80" value="0.45" step="0.01">
+                  <small>
+                    Similaridade cosseno, não probabilidade. A faixa de ±0,05 exige nova captura.
+                  </small>
+                </div>
+              </div>
+              <div class="dev-result" id="dev-result" aria-live="polite">
+                <p class="muted">
+                  Nenhum quadro analisado.
+                </p>
+              </div>
+            </section>
+            <div class="dev-side-stack">
+              <section class="panel panel-pad" aria-labelledby="dev-enroll-title">
+                <header class="dev-panel-heading">
+                  <div>
+                    <span class="dev-step">
+                      01 / Cadastro
+                    </span>
+                    <h2 id="dev-enroll-title">
+                      Adicione seu rosto
+                    </h2>
+                  </div>
+                </header>
+                <form id="dev-enroll-form" method="post">
+                  <div class="field">
+                    <label for="dev-name">
+                      Nome do perfil
+                    </label>
+                    <input class="input" id="dev-name" name="name" placeholder="Como você quer ser identificado?" maxlength="80" required autocomplete="off">
+                  </div>
+                  <label class="dev-upload" for="dev-enroll-images">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                      <path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"/>
+                    </svg>
+                    <strong>
+                      Selecionar fotos
+                    </strong>
+                    <small>
+                      1 a 5 fotos · JPG, PNG ou WebP · até 8 MB e 8 megapixels cada
+                    </small>
+                    <input id="dev-enroll-images" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+                  </label>
+                  <div class="dev-enroll-previews" id="dev-enroll-previews">
+                  </div>
+                  <button type="button" class="btn full" id="dev-capture-enroll" disabled>
+                    Usar quadro da câmera
+                  </button>
+                  <p class="dev-help">
+                    Use fotos nítidas, com um único rosto, boa luz e ângulos levemente diferentes. As fotos ficam na memória; o cadastro guarda descritores faciais locais.
+                  </p>
+                  <button class="btn primary full" type="submit" id="dev-enroll-submit" disabled>
+                    Cadastrar perfil
+                  </button>
+                </form>
+              </section>
+              <section class="panel panel-pad" aria-labelledby="dev-profiles-title">
+                <header class="dev-panel-heading">
+                  <div>
+                    <span class="dev-step">
+                      Base de teste
+                    </span>
+                    <h2 id="dev-profiles-title">
+                      Perfis locais
+                    </h2>
+                  </div>
+                  <button class="btn small ghost" id="dev-refresh-profiles">
+                    Atualizar
+                  </button>
+                </header>
+                <div class="dev-profiles" id="dev-profiles">
+                  <p class="muted">
+                    Conecte o servidor para listar os perfis.
+                  </p>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div class="dev-bottom-grid">
+            <section class="panel panel-pad" aria-labelledby="dev-image-title">
+              <header class="dev-panel-heading">
+                <div>
+                  <span class="dev-step">
+                    02 / Imagem e comparação
+                  </span>
+                  <h2 id="dev-image-title">
+                    Encontre o equilíbrio
+                  </h2>
+                  <p>
+                    Compare quatro escalas usando exatamente a mesma foto.
+                  </p>
+                </div>
+              </header>
+              <div class="dev-image-actions">
+                <label class="btn" for="dev-test-image">
+                  Escolher imagem
+                  <input class="visually-hidden" id="dev-test-image" type="file" accept="image/jpeg,image/png,image/webp">
+                </label>
+                <button class="btn" id="dev-capture-test" disabled>
+                  Capturar câmera
+                </button>
+                <span class="dev-help" id="dev-image-name">
+                  Nenhuma imagem selecionada
+                </span>
+              </div>
+              <div class="dev-image-preview" id="dev-image-preview" hidden>
+                <canvas id="dev-image-canvas" aria-label="Imagem selecionada com resultados de identificação">
+                </canvas>
+              </div>
+              <div class="dev-image-actions">
+                <button class="btn primary" id="dev-recognize-image" disabled>
+                  Analisar imagem
+                </button>
+                <button class="btn" id="dev-benchmark" disabled>
+                  Comparar escalas
+                </button>
+                <button class="btn ghost" id="dev-clear-image" disabled>
+                  Limpar imagem
+                </button>
+              </div>
+              <p class="dev-help">
+                Comparação: 1 aquecimento e 3 medições por escala. A redução de 10% tem 1% dos pixels originais e pode perder rostos pequenos.
+              </p>
+              <div class="dev-benchmark-results" id="dev-benchmark-results">
+                <p class="muted">
+                  Os tempos serão medidos no seu computador.
+                </p>
+              </div>
+            </section>
+            <section class="panel panel-pad" aria-labelledby="dev-metrics-title">
+              <header class="dev-panel-heading">
+                <div>
+                  <span class="dev-step">
+                    03 / Validação
+                  </span>
+                  <h2 id="dev-metrics-title">
+                    Meça a precisão
+                  </h2>
+                  <p>
+                    Informe quem realmente está no quadro antes de analisar.
+                  </p>
+                </div>
+              </header>
+              <div class="field">
+                <label for="dev-ground-truth">
+                  Identidade esperada
+                </label>
+                <select class="input" id="dev-ground-truth">
+                  <option value="">
+                    Sem anotação · apenas desempenho
+                  </option>
+                  <option value="__unknown__">
+                    Pessoa não cadastrada
+                  </option>
+                </select>
+              </div>
+              <p class="dev-help">
+                Pontuam somente observações com no máximo um rosto. Se um perfil era esperado e nenhum rosto é detectado, conta como falso negativo. Quadros de vídeo correlacionados não substituem uma avaliação independente.
+              </p>
+              <div class="dev-metrics-grid" id="dev-metrics-grid">
+                <div>
+                  <span>
+                    Precisão
+                  </span>
+                  <strong id="dev-precision">
+                    —
+                  </strong>
+                </div>
+                <div>
+                  <span>
+                    Recall
+                  </span>
+                  <strong id="dev-recall">
+                    —
+                  </strong>
+                </div>
+                <div>
+                  <span>
+                    Acurácia
+                  </span>
+                  <strong id="dev-accuracy">
+                    —
+                  </strong>
+                </div>
+                <div>
+                  <span>
+                    Amostras anotadas
+                  </span>
+                  <strong id="dev-scored">
+                    0
+                  </strong>
+                </div>
+              </div>
+              <p class="dev-metric-detail" id="dev-metric-detail">
+                TP 0 · FP 0 · FN 0 · TN 0
+              </p>
+              <div class="dev-image-actions">
+                <button class="btn small" id="dev-export" disabled>
+                  Exportar CSV
+                </button>
+                <button class="btn small ghost" id="dev-clear-records" disabled>
+                  Limpar medições
+                </button>
+              </div>
+              <p class="dev-help">
+                Medições limitadas às últimas 1.000 análises desta sessão. CSV contém resultados e tempos, sem imagens.
+              </p>
+            </section>
+          </div>
+          <div class="dev-note">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 10v7m0-11h.01"/>
+            </svg>
+            <p>
+              Laboratório local para testes voluntários. Não detecta prova de vida: fotos e telas podem ser reconhecidas. Os resultados não liberam acesso nem registram presença escolar.
+            </p>
+          </div>
+        </main>
+        <footer class="app-footer">
+          <span>
+            AEGIS · Advanced Educational Guardian Intelligence System
+          </span>
+          <a href="Privacidade.html">
+            Privacidade
+          </a>
+        </footer>
+      </div>
+    </div>
+    <noscript>
+      <p>
+        Ative o JavaScript para cadastrar perfis e testar a câmera.
+      </p>
+    </noscript>
+  </body>
+</html>
