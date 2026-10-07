@@ -9,8 +9,8 @@
       Developer Test · AEGIS
     </title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23061c4e'/%3E%3Cpath d='M16 5 7 9v7c0 6 9 11 9 11s9-5 9-11V9Z' fill='none' stroke='%233a88f3' stroke-width='2'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="./style.css?v=6">
-    <script src="./DeveloperTest.js?v=6" defer>
+    <link rel="stylesheet" href="./style.css?v=9">
+    <script src="./DeveloperTest.js?v=9" defer>
     </script>
   </head>
   <body class="dev-page">
@@ -18,10 +18,10 @@
       Pular para o conteúdo
     </a>
     <div class="app-shell">
-      <button class="sidebar-scrim" id="dev-menu-scrim" aria-label="Fechar menu">
+      <button type="button" class="sidebar-scrim" id="dev-menu-scrim" aria-label="Fechar menu">
       </button>
       <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
-        <button class="icon-button sidebar-close" id="dev-menu-close" aria-label="Fechar menu">
+        <button type="button" class="icon-button sidebar-close" id="dev-menu-close" aria-label="Fechar menu">
           ✕
         </button>
         <header class="sidebar-brand">
@@ -36,11 +36,7 @@
               <span class="brand-name">
                 AEGIS
               </span>
-              <span class="brand-sub">
-                Advanced Educational Guardian
-                <br>
-                Intelligence System
-              </span>
+              <span class="brand-sub">Acompanhamento escolar</span>
             </span>
           </a>
         </header>
@@ -134,7 +130,7 @@
       </aside>
       <div class="workspace">
         <header class="topbar dev-topbar">
-          <button class="icon-button mobile-menu" id="dev-menu-open" aria-label="Abrir menu principal" aria-expanded="false" aria-controls="sidebar">
+          <button type="button" class="icon-button mobile-menu" id="dev-menu-open" aria-label="Abrir menu principal" aria-expanded="false" aria-controls="sidebar">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
@@ -201,7 +197,7 @@
                 Abrir em 127.0.0.1:8765
               </a>
             </div>
-            <button class="btn small" id="dev-reconnect">
+            <button type="button" class="btn small" id="dev-reconnect">
               Reconectar
             </button>
           </section>
@@ -315,10 +311,10 @@
                     </option>
                   </select>
                 </div>
-                <button class="btn primary" id="dev-start" disabled>
+                <button type="button" class="btn primary" id="dev-start" disabled>
                   Iniciar câmera
                 </button>
-                <button class="btn" id="dev-stop" disabled>
+                <button type="button" class="btn" id="dev-stop" disabled>
                   Parar
                 </button>
               </div>
@@ -418,7 +414,7 @@
                       Perfis locais
                     </h2>
                   </div>
-                  <button class="btn small ghost" id="dev-refresh-profiles">
+                  <button type="button" class="btn small ghost" id="dev-refresh-profiles">
                     Atualizar
                   </button>
                 </header>
@@ -450,7 +446,7 @@
                   Escolher imagem
                   <input class="visually-hidden" id="dev-test-image" type="file" accept="image/jpeg,image/png,image/webp">
                 </label>
-                <button class="btn" id="dev-capture-test" disabled>
+                <button type="button" class="btn" id="dev-capture-test" disabled>
                   Capturar câmera
                 </button>
                 <span class="dev-help" id="dev-image-name">
@@ -462,13 +458,13 @@
                 </canvas>
               </div>
               <div class="dev-image-actions">
-                <button class="btn primary" id="dev-recognize-image" disabled>
+                <button type="button" class="btn primary" id="dev-recognize-image" disabled>
                   Analisar imagem
                 </button>
-                <button class="btn" id="dev-benchmark" disabled>
+                <button type="button" class="btn" id="dev-benchmark" disabled>
                   Comparar escalas
                 </button>
-                <button class="btn ghost" id="dev-clear-image" disabled>
+                <button type="button" class="btn ghost" id="dev-clear-image" disabled>
                   Limpar imagem
                 </button>
               </div>
@@ -549,10 +545,10 @@
                 TP 0 · FP 0 · FN 0 · TN 0
               </p>
               <div class="dev-image-actions">
-                <button class="btn small" id="dev-export" disabled>
+                <button type="button" class="btn small" id="dev-export" disabled>
                   Exportar CSV
                 </button>
-                <button class="btn small ghost" id="dev-clear-records" disabled>
+                <button type="button" class="btn small ghost" id="dev-clear-records" disabled>
                   Limpar medições
                 </button>
               </div>

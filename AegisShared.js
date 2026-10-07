@@ -169,13 +169,13 @@
         "at": "13:50:47"
     }
 ];
-  const brand = () => `<div class="brand"><span class="brand-mark"><img src="${images['./assets/aegis-logo.png']}" alt=""></span><div><div class="brand-name">AEGIS</div><div class="brand-sub">Advanced Educational Guardian<br>Intelligence System</div></div></div>`;
+  const brand = () => `<div class="brand"><span class="brand-mark"><svg class="brand-color-filter" width="0" height="0" aria-hidden="true"><defs><filter id="aegis-logo-navy" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.0235294 0 0 0 0 0.1098039 0 0 0 0 0.3058824 0 0 0 1 0"/></filter></defs></svg><img src="${images['./assets/aegis-logo.png']}" alt=""></span><div><div class="brand-name">AEGIS</div><div class="brand-sub">Acompanhamento escolar</div></div></div>`;
   const demoBadge = () => `<span class="badge blue">${icon('info')}Ambiente de demonstração</span>`;
   const badge = (status) => ({confirmed:`<span class="badge success">${icon('checkcircle')}Identificado</span>`,uncertain:`<span class="badge warning">${icon('help')}Identificação incerta</span>`,unknown:`<span class="badge danger">${icon('alert')}Não identificado</span>`,active:`<span class="badge success">${icon('checkcircle')}Ativo</span>`,inactive:`<span class="badge">${icon('user')}Inativo</span>`}[status] || '');
   const photoMarkup = (src, alt, cls='') => validImage(src)
     ? `<img class="${cls}" src="${esc(imageSource(src))}" alt="${esc(alt)}">`
-    : `<span class="${cls} image-blank" role="img" aria-label="Sem foto"></span>`;
-  const avatar = (student) => validImage(student.photo) ? `<img class="avatar" src="${esc(imageSource(student.photo))}" alt="Foto de ${esc(student.name)}">` : `<span class="avatar image-blank" role="img" aria-label="Sem foto"></span>`;
+    : `<span class="${cls} image-blank image-placeholder" role="img" aria-label="${esc(alt)}: imagem indisponível">${icon(cls === 'camera-image' ? 'scan' : 'user')}<span aria-hidden="true">Sem imagem</span></span>`;
+  const avatar = (student) => validImage(student.photo) ? `<img class="avatar" src="${esc(imageSource(student.photo))}" alt="Foto de ${esc(student.name)}">` : `<span class="avatar" role="img" aria-label="Iniciais de ${esc(student.name)}">${esc(initials(student.name))}</span>`;
   const empty = (title,text,type='search') => `<div class="empty-state"><div class="empty-icon">${icon(type)}</div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>`;
   const head = (title,subtitle='',extra='',label='') => `<header class="page-heading"><div>${label?`<span class="eyebrow">${esc(label)}</span>`:''}<h1 id="page-title">${esc(title)}</h1>${subtitle?`<p>${esc(subtitle)}</p>`:''}</div><div class="heading-side">${extra}</div></header>`;
   const tabs = route => `<nav class="workspace-tabs" aria-label="Dados gerais">${[['dashboard','grid','Visão geral'],['movement','move','Movimentação'],['prb','shield','PRB'],['report','file','Relatório']].map(([r,i,n])=>`<a class="tab ${route===r?'active':''}" href="${pageHref(r)}" ${route===r?'aria-current="page"':''}>${icon(i)}${n}</a>`).join('')}</nav>`;

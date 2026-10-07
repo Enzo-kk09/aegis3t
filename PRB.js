@@ -80,10 +80,10 @@
   function renderShell(content) {
     const mainActive=['dashboard','movement','prb','report'].includes(route)?'dashboard':route;
     return `<div class="app-shell">
-        <button class="sidebar-scrim ${menuOpen?'visible':''}" data-action="close-menu" aria-label="Fechar menu">
+        <button type="button" class="sidebar-scrim ${menuOpen?'visible':''}" data-action="close-menu" aria-label="Fechar menu">
         </button>
         <aside class="sidebar ${menuOpen?'open':''}" id="sidebar" aria-label="Navegação e informações da instituição">
-          <button class="icon-button sidebar-close" data-action="close-menu" aria-label="Fechar menu">${icon('close')}</button>
+          <button type="button" class="icon-button sidebar-close" data-action="close-menu" aria-label="Fechar menu">${icon('close')}</button>
           <header class="sidebar-brand">${brand()}</header>
           <p class="nav-section">Principal</p>
           <nav class="side-nav" aria-label="Menu principal">${sideLinks.map(([r,i,n])=>`<a class="nav-item ${mainActive===r?'active':''}" href="${pageHref(r)}" ${mainActive===r?'aria-current="page"':''}>${icon(i)}${n}</a>`).join('')}</nav>
@@ -108,16 +108,16 @@
         </aside>
         <div class="workspace">
           <header class="topbar">
-            <button class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Abrir menu principal" aria-expanded="${menuOpen}" aria-controls="sidebar">${icon('menu')}</button>
+            <button type="button" class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Abrir menu principal" aria-expanded="${menuOpen}" aria-controls="sidebar">${icon('menu')}</button>
             <form id="global-search-form" class="search-input global-search" role="search" aria-label="Busca geral">${icon('search')}<input class="input" type="search" name="query" aria-label="Buscar alunos ou câmeras" placeholder="Buscar alunos ou câmeras…" maxlength="100" value="${esc(filters.studentQuery && route==='students'?filters.studentQuery:'')}">
             </form>
             <div class="topbar-actions">
               <a class="icon-button settings-shortcut" href="Configuracoes.html" aria-label="Configurações">${icon('settings')}</a>
-              <button class="icon-button notify" data-action="notifications" aria-label="Ver notificações">${icon('bell')}${state.events.length?`<span class="notification-dot">
+              <button type="button" class="icon-button notify" data-action="notifications" aria-label="Ver notificações">${icon('bell')}${state.events.length?`<span class="notification-dot">
                 </span>`:''}</button>
               <div class="system-status" title="Status do sistema">${icon('cloud')}<span>Sistema online</span>
               </div>
-              <button class="profile-button" data-action="profile" aria-label="Abrir perfil da instituição">
+              <button type="button" class="profile-button" data-action="profile" aria-label="Abrir perfil da instituição">
                 <span class="avatar">${esc(initials(session.institution))}</span>
                 <span class="profile-label">${esc(session.institution)}<small>Administrador</small>
                 </span>${icon('down')}</button>
@@ -147,7 +147,7 @@
       </div>${badge(c.status)}<div class="info-box">${icon('info')}<span>Uma identificação incerta ou não confirmada exige revisão humana.</span>
       </div>
       <div class="modal-actions">
-        <button class="btn" data-action="close-modal">Fechar</button>
+        <button type="button" class="btn" data-action="close-modal">Fechar</button>
         <a class="btn primary" href="Movimentacao.html">Consultar movimentação</a>
       </div>`);
   }
@@ -162,15 +162,14 @@
             <label for="prb-code">Código de acesso</label>
             <input id="prb-code" class="input prb-code" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" placeholder="······" autocomplete="off" required aria-describedby="prb-hint">
           </div>
-          <p class="form-error">
-          </p>
+          <p class="form-error"></p>
           <button class="btn primary" type="submit">${icon('lock')}Validar acesso</button>
         </form>
         <div class="info-box" id="prb-hint">${icon('info')}<span>Informe o código de seis dígitos fornecido pela instituição.</span>
         </div>
         <p class="form-note">A consulta deve ser feita por um responsável da instituição.</p>
       </section>`;
-    return `${head('Área PRB','Registros que precisam da revisão de um responsável.',`<button class="btn" data-action="lock-prb">${icon('lock')}Encerrar consulta</button>`)}${tabs()}<div class="info-box warning">${icon('alert')}<span>Identificações incertas e não confirmadas exigem revisão humana.</span>
+    return `${head('Área PRB','Registros que precisam da revisão de um responsável.',`<button type="button" class="btn" data-action="lock-prb">${icon('lock')}Encerrar consulta</button>`)}${tabs()}<div class="info-box warning">${icon('alert')}<span>Identificações incertas e não confirmadas exigem revisão humana.</span>
       </div>
       <section class="panel table-panel" aria-labelledby="prb-records-title">
         <header class="panel-header">
@@ -195,7 +194,7 @@
                 <td>${esc(c.location)}</td>
                 <td>${badge(c.status)}</td>
                 <td>
-                  <button class="btn small" data-action="camera-detail" data-id="${c.id}">${icon('eye')}Ver registro</button>
+                  <button type="button" class="btn small" data-action="camera-detail" data-id="${c.id}">${icon('eye')}Ver registro</button>
                 </td>
               </tr>`).join('')}</tbody>
           </table>
@@ -253,7 +252,7 @@
       case 'close-modal':closeModal();break;
       case 'toggle-menu':setMenu(!menuOpen);break;
       case 'close-menu':setMenu(false);break;
-      case 'profile':openModal('Instituição',`<div class="detail-hero"><span class="avatar">${esc(initials(session.institution))}</span><div><h3>${esc(session.institution)}</h3><p>Administrador</p></div></div><div class="modal-actions"><a class="btn" href="Configuracoes.html">Configurações</a><button class="btn primary" data-action="logout">${icon('logout')}Sair da plataforma</button></div>`);break;
+      case 'profile':openModal('Instituição',`<div class="detail-hero"><span class="avatar">${esc(initials(session.institution))}</span><div><h3>${esc(session.institution)}</h3><p>Administrador</p></div></div><div class="modal-actions"><a class="btn" href="Configuracoes.html">Configurações</a><button type="button" class="btn primary" data-action="logout">${icon('logout')}Sair da plataforma</button></div>`);break;
       case 'logout':session=null;prbUnlocked=false;try{sessionStorage.removeItem(SESSION_KEY);}catch{}closeModal();navigate('login');break;
       case 'notifications':openModal('Notificações',state.events.length?`<ul class="activity-list">${state.events.slice(0,4).map(e=>`<li class="activity-row"><span class="activity-icon">${icon('bell')}</span><div class="activity-text"><strong>${esc(e.title)}</strong><p>${esc(eventDescription(e.description))}</p><p><time datetime="${esc(e.at)}">${dateTime(e.at)}</time></p></div></li>`).join('')}</ul><div class="modal-actions"><a class="btn primary" href="Eventos.html">Ver todos os eventos</a></div>`:empty('Tudo em dia','Nenhuma ação foi registrada.','bell'));break;
       case 'camera-detail':cameraDetail(id);break;

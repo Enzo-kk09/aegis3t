@@ -1,22 +1,74 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="login-document">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
   <meta name="theme-color" content="#061c4e">
   <meta name="description" content="AEGIS: acompanhamento de identificações, movimentações e registros em ambientes educacionais.">
   <title>Entrar · AEGIS</title>
-  <link id="site-icon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201%201%22%3E%3C%2Fsvg%3E">
-  <link rel="stylesheet" href="./style.css?v=6">
-  <script src="./AegisShared.js?v=6" defer></script>
-  <script src="./index.js?v=6" defer></script>
+  <link rel="icon" type="image/png" href="./assets/aegis-logo.png">
+  <link rel="stylesheet" href="./style.css?v=9">
+  <script src="./AegisShared.js?v=9" defer></script>
+  <script src="./index.js?v=9" defer></script>
 </head>
-<body>
+<body class="login-page">
   <a class="skip-link" href="#main">Pular para o conteúdo</a>
-  <div id="app"><main class="app-loading" id="main" tabindex="-1" aria-labelledby="loading-title"><h1 id="loading-title">Entrar</h1><p role="status">Carregando a plataforma…</p></main></div>
-
-  <dialog id="modal" aria-labelledby="modal-title"><h2 id="modal-title" class="visually-hidden">Janela do AEGIS</h2></dialog>
-  <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
-  <noscript><p>Ative o JavaScript para usar os formulários e os dados salvos do AEGIS.</p></noscript>
+  <div id="app">
+    <main class="auth-page" id="main" tabindex="-1" aria-labelledby="login-title">
+      <header class="auth-story">
+        <div class="auth-brand">
+          <img src="./assets/aegis-logo.png" width="172" height="112" alt="" class="auth-logo">
+          <p class="auth-wordmark">AEGIS<span>Acompanhamento escolar</span></p>
+        </div>
+        <div class="auth-intro">
+          <p class="auth-kicker">Tecnologia a serviço da educação</p>
+          <p class="auth-title">A escola,<br>em uma<br><span>só visão.</span></p>
+          <p class="auth-description">Identificações, movimentações e registros.<br>O cotidiano da instituição em um só lugar.</p>
+        </div>
+        <ul class="auth-features" aria-label="Recursos da plataforma">
+          <li><span aria-hidden="true">01</span><span>Identificar<small>Registros por câmera</small></span></li>
+          <li><span aria-hidden="true">02</span><span>Acompanhar<small>Entradas e saídas</small></span></li>
+          <li><span aria-hidden="true">03</span><span>Consultar<small>Alunos e relatórios</small></span></li>
+        </ul>
+        <p class="auth-story-footer"><span>Advanced Educational Guardian<br>Intelligence System</span><strong>CIMOL</strong></p>
+      </header>
+      <section class="auth-body" aria-labelledby="login-title">
+        <div class="auth-wrap">
+          <header class="auth-heading">
+            <h1 id="login-title">Entrar na plataforma</h1>
+          </header>
+          <form method="post" class="auth-form" id="login-form" aria-labelledby="login-title">
+            <div class="field">
+              <label for="institution">Instituição</label>
+              <input class="input" id="institution" name="institution" autocomplete="organization" placeholder="Nome da instituição" required maxlength="80">
+            </div>
+            <div class="field">
+              <label for="password">Senha de acesso</label>
+              <div class="password-input">
+                <input class="input" type="password" id="password" name="password" autocomplete="current-password" placeholder="Digite sua senha" required maxlength="80">
+                <button class="icon-button" type="button" data-action="toggle-password" aria-label="Mostrar senha" aria-pressed="false" aria-controls="password">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="form-error" id="login-error" role="alert"></p>
+            <button class="btn primary full auth-submit" type="submit"><span>Entrar</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button>
+          </form>
+          <nav class="auth-support" aria-label="Opções de acesso"><a class="btn full auth-request" href="SolicitarAcesso.html">Solicitar acesso</a><button type="button" class="auth-credentials" data-action="open-credentials" aria-haspopup="dialog" aria-controls="modal">Demonstração</button></nav>
+          <noscript><p class="form-error">Ative o JavaScript para entrar e explorar a demonstração.</p></noscript>
+        </div>
+        <footer class="auth-links"><a href="Privacidade.html">Política de Privacidade</a></footer>
+      </section>
+    </main>
+  </div>
+  <dialog id="modal" aria-labelledby="modal-title" aria-describedby="credentials-note">
+    <header class="modal-head"><h2 id="modal-title">Acesso de demonstração</h2><button class="icon-button" type="button" data-action="close-modal" aria-label="Fechar janela" autofocus><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></header>
+    <div class="modal-body">
+      <dl class="auth-access-data"><div><dt>Instituição</dt><dd>CIMOL</dd></div><div><dt>Senha de acesso</dt><dd>AEGIS2026</dd></div><div><dt>Código PRB</dt><dd>123456</dd></div></dl>
+      <p class="form-note" id="credentials-note">Ambiente de demonstração com dados fictícios salvos neste navegador. Acesso, câmeras e reconhecimento facial são simulados; as solicitações não são enviadas.</p>
+      <button class="btn primary full" type="button" data-action="demo-login">Explorar demonstração</button>
+    </div>
+  </dialog>
+  <svg class="brand-color-filter" width="0" height="0" aria-hidden="true"><defs><filter id="aegis-logo-navy" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.0235294 0 0 0 0 0.1098039 0 0 0 0 0.3058824 0 0 0 1 0"/></filter></defs></svg>
 </body>
 </html>

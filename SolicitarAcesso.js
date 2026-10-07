@@ -75,7 +75,7 @@
             <span class="eyebrow muted">Acesso institucional</span>
             <h1 id="request-title" style="margin-top:12px">Solicitar acesso à plataforma</h1>
             <p class="muted">Preencha os dados da instituição para registrar sua solicitação.</p>
-            <form method="post" id="request-form" class="form-grid" aria-labelledby="request-title">
+            <form method="post" id="request-form" class="form-grid" aria-labelledby="request-title" aria-describedby="request-note">
               <div class="field span-2">
                 <label for="request-name">Nome completo</label>
                 <input id="request-name" class="input" name="name" autocomplete="name" required minlength="3" maxlength="100" placeholder="Seu nome completo">
@@ -107,20 +107,17 @@
                 <input type="checkbox" name="consent" required>
                 <span>Li a <a href="Privacidade.html">Política de Privacidade</a>.</span>
               </label>
-              <p class="form-error span-2">
-              </p>
+              <p class="form-error span-2"></p>
               <button class="btn primary span-2" type="submit">Registrar solicitação</button>
             </form>
+            <p class="form-note" id="request-note">Registro de demonstração, salvo apenas neste navegador.</p>
           </section>
-          <aside class="panel request-status" aria-label="Status da solicitação" aria-live="polite">${stored?`<div class="status-illustration success">${icon('checkcircle')}</div>
-            <h2>Solicitação registrada</h2>
+          <aside class="panel request-status" data-status="${stored?'registered':'waiting'}" tabindex="-1" aria-labelledby="request-status-title" aria-live="polite">${stored?`<div class="status-illustration success">${icon('checkcircle')}</div>
+            <h2 id="request-status-title">Solicitação registrada</h2>
             <p>Seu protocolo está disponível abaixo.</p>
-            <div class="protocol">
-              <span class="eyebrow">Dados do protocolo</span>
-              <strong>${esc(stored.protocol)}</strong>
-            </div>
-            <a class="btn full" style="margin-top:24px" href="index.html">Voltar para o login</a>`:`<div class="status-illustration">${icon('clock')}</div>
-            <h2>Aguardando solicitação</h2>
+            <dl class="protocol"><dt>Protocolo da solicitação</dt><dd><code>${esc(stored.protocol)}</code></dd></dl>
+            <a class="btn full" href="index.html">Voltar para o login</a>`:`<div class="status-illustration">${icon('clock')}</div>
+            <h2 id="request-status-title">Aguardando solicitação</h2>
             <p>Depois de preencher e enviar o formulário, seu protocolo aparecerá aqui.</p>`}</aside>
         </main>
       </div>`;
@@ -157,7 +154,7 @@
         if(value('name').length<3||value('reason').length<10||!value('institution')){setError(form,'Preencha o nome, a instituição e um motivo com pelo menos 10 caracteres.');return;}
         const next=copy(state);const protocol=`AEGIS-${today().slice(0,4)}-${String(next.requests.length+1).padStart(4,'0')}`;
         next.requests.push({id:uid(),protocol,name:value('name'),email:value('email'),institution:value('institution'),role:value('role'),reason:value('reason'),at:now()});
-        if(persist(next)){lastProtocol=protocol;render();toast('Solicitação registrada.');}
+        if(persist(next)){lastProtocol=protocol;render();const status=document.querySelector('.request-status');status.focus({preventScroll:true});status.scrollIntoView({block:'nearest'});toast('Solicitação registrada.');}
         return;
       }
     } catch { if(form.querySelector('.form-error'))setError(form,'Não foi possível concluir. Confira os dados e tente novamente.');else toast('Não foi possível concluir esta ação.',true); }

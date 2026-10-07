@@ -114,7 +114,6 @@
     
   }
 
-  // Formulários e ações próprios desta página.
 
 
   modal.addEventListener('click',event=>{if(event.target===modal){const r=modal.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeModal();}});
