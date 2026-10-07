@@ -11,7 +11,7 @@
   }
   const { images,imageSource,STORAGE_KEY,SESSION_KEY,icon,esc,normalize,copy,uid,now,time,dateTime,today,dateLabel,initials,validImage,defaultState,brand,demoBadge,badge,photoMarkup,avatar,empty,head,publicHeader,pageFiles,pageHref,pages,sideLinks,cameras } = shared;
   const favicon = document.getElementById('site-icon');
-  if (favicon) { favicon.type = 'image/png'; favicon.href = images['./assets/aegis-logo.png']; }
+  if (favicon) { favicon.type = 'image/png'; favicon.href = images['./aegis-logo.png']; }
   const app = document.getElementById('app');
   const modal = document.getElementById('modal');
   const loaded = shared.loadState(()=>localStorage);
