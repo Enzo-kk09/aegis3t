@@ -458,3 +458,6 @@ tbody tr:hover { background: #f6faf8; }
   .auth-form .form-error, .auth-form > button[type=submit] { grid-column: 1 / -1; }
   .auth-story-footer { display: none; }
 }
+
+/* Text fields keep their layout dimensions; content remains editable. */
+textarea, textarea.input { resize: none; }
