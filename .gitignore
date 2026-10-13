@@ -1,0 +1,8 @@
+.runtime/
+.venv/
+__pycache__/
+developer_test/
+*.py
+*.pyc
+*.sqlite3*
+Software.md
