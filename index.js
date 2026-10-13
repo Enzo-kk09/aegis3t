@@ -86,7 +86,6 @@
             <div class="auth-wordmark">AEGIS</div>
             <p class="auth-system-name">Advanced Educational Guardian<br>Intelligence System</p>
             <h1 id="welcome-title">Controle de acesso<br>escolar</h1>
-            <p class="auth-description">Consulta de identificações e movimentações da instituição.</p>
           </div>
           <p class="auth-story-footer"><span>AEGIS / Plataforma educacional</span><span>CIMOL · 2026</span></p>
         </header>
