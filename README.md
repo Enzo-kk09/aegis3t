@@ -6,6 +6,8 @@ O sistema permite consultar identificações, acompanhar movimentações, gerenc
 
 ## Acesso
 
+- Prévia do redesenho: https://aegis3t-9i7a8naua-enzo28calegaro-4701.vercel.app/
+- Proposta de atualização: https://github.com/Enzo-kk09/aegis3t/pull/1
 - Repositório público: https://github.com/Enzo-kk09/aegis3t
 - Instituição para teste: `CIMOL`
 - Senha de acesso: `AEGIS2026`
@@ -17,7 +19,7 @@ Este é um frontend acadêmico. A sessão e os cadastros são armazenados no nav
 
 | Critério | Implementação e verificação |
 | --- | --- |
-| Deploy e funcionamento | HTML, CSS, JavaScript e imagens com caminhos relativos. As referências locais das 13 páginas foram verificadas. O endereço publicado consta abaixo quando a publicação estiver concluída. |
+| Deploy e funcionamento | HTML, CSS, JavaScript e imagens com caminhos relativos. As referências locais das 13 páginas foram verificadas. A prévia do redesenho foi publicada na Vercel e respondeu HTTP 200. Ela usa a proteção padrão da conta Vercel; a integração à main e a publicação final continuam pendentes de revisão. |
 | Interatividade sem recarregamento | Formulários tratados com `preventDefault()`. Cadastro, edição e exclusão de alunos, observações de movimentação e validação PRB verificados em testes de DOM. A navegação entre páginas utiliza um HTML por tela. |
 | Persistência de dados | Cadastros, observações, solicitações e preferências usam `localStorage`; a sessão usa `sessionStorage`. Testes verificam leitura após abrir novamente a página e proteção contra gravações de abas desatualizadas. |
 | Estabilidade do console | Os 25 testes existentes e as verificações locais de inicialização das 13 páginas passaram. O laboratório informa sua dependência local sem tentar conectar automaticamente em hospedagem estática. A revisão final no console de um navegador real permanece pendente por indisponibilidade da ferramenta de navegador nesta execução. |
