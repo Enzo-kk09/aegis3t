@@ -10,7 +10,7 @@
   }
   const { images,imageSource,STORAGE_KEY,SESSION_KEY,icon,esc,normalize,copy,uid,now,time,dateTime,today,dateLabel,initials,validImage,defaultState,brand,demoBadge,badge,photoMarkup,avatar,empty,head,publicHeader,pageFiles,pageHref,pages,sideLinks,cameras } = shared;
   const favicon = document.getElementById('site-icon');
-  if (favicon) { favicon.type = 'image/png'; favicon.href = images['./aegis-logo.png']; }
+  if (favicon) { favicon.type = 'image/svg+xml'; favicon.href = images['./aegis-logo.png']; }
   const app = document.getElementById('app');
   const modal = document.getElementById('modal');
   const loaded = shared.loadState(()=>localStorage);
@@ -73,7 +73,7 @@
     return `<div class="request-page">${publicHeader()}<main id="main" class="request-layout" tabindex="-1" aria-labelledby="request-title">
           <section class="panel request-card" aria-labelledby="request-title">
             <span class="eyebrow muted">Acesso institucional</span>
-            <h1 id="request-title" style="margin-top:12px">Solicitar acesso à plataforma</h1>
+            <h1 class="control-spaced" id="request-title">Solicitar acesso à plataforma</h1>
             <p class="muted">Preencha os dados da instituição para registrar sua solicitação.</p>
             <form method="post" id="request-form" class="form-grid" aria-labelledby="request-title" aria-describedby="request-note">
               <div class="field span-2">

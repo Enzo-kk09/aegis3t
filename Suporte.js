@@ -10,7 +10,7 @@
   }
   const { images,imageSource,STORAGE_KEY,SESSION_KEY,icon,esc,normalize,copy,uid,now,time,dateTime,today,dateLabel,initials,validImage,defaultState,brand,demoBadge,badge,photoMarkup,avatar,empty,head,publicHeader,pageFiles,pageHref,pages,sideLinks,cameras } = shared;
   const favicon = document.getElementById('site-icon');
-  if (favicon) { favicon.type = 'image/png'; favicon.href = images['./aegis-logo.png']; }
+  if (favicon) { favicon.type = 'image/svg+xml'; favicon.href = images['./aegis-logo.png']; }
   const app = document.getElementById('app');
   const modal = document.getElementById('modal');
   const loaded = shared.loadState(()=>localStorage);
@@ -93,71 +93,14 @@
   }
 
   function setMenu(open) {
-    menuOpen=open;
-    document.querySelector('.sidebar')?.classList.toggle('open',open);
-    document.querySelector('.sidebar-scrim')?.classList.toggle('visible',open);
-    document.querySelector('.mobile-menu')?.setAttribute('aria-expanded',String(open));
-    document.querySelector(open?'.sidebar .nav-item':'.mobile-menu')?.focus();
+    menuOpen = open;
+    shared.setMenu(open);
   }
 
   function closeModal(){if(modal.open)modal.close();previousFocus?.isConnected&&previousFocus.focus();}
 
   function renderShell(content) {
-    const mainActive=['dashboard','movement','prb','report'].includes(route)?'dashboard':route;
-    return `<div class="app-shell">
-        <button type="button" class="sidebar-scrim ${menuOpen?'visible':''}" data-action="close-menu" aria-label="Fechar menu">
-        </button>
-        <aside class="sidebar ${menuOpen?'open':''}" id="sidebar" aria-label="Navegação e informações da instituição">
-          <button type="button" class="icon-button sidebar-close" data-action="close-menu" aria-label="Fechar menu">${icon('close')}</button>
-          <header class="sidebar-brand">${brand()}</header>
-          <p class="nav-section">Principal</p>
-          <nav class="side-nav" aria-label="Menu principal">${sideLinks.map(([r,i,n])=>`<a class="nav-item ${mainActive===r?'active':''}" href="${pageHref(r)}" ${mainActive===r?'aria-current="page"':''}>${icon(i)}${n}</a>`).join('')}</nav>
-          <div class="side-divider">
-          </div>
-          <p class="nav-section">Desenvolvimento</p>
-          <nav class="side-nav" aria-label="Desenvolvimento"><a class="nav-item" href="DeveloperTest.html"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Developer Test</a></nav>
-          <div class="side-divider"></div>
-          <p class="nav-section">Instituição</p>
-          <nav class="side-nav" aria-label="Administração">
-            <a class="nav-item ${route==='settings'?'active':''}" href="Configuracoes.html" ${route==='settings'?'aria-current="page"':''}>${icon('settings')}Configurações</a>
-            <a class="nav-item ${route==='help'?'active':''}" href="Suporte.html" ${route==='help'?'aria-current="page"':''}>${icon('help')}Ajuda</a>
-          </nav>
-          <div class="sidebar-bottom">
-            <div class="sync-panel">
-              <span class="eyebrow">Última atualização</span>
-              <time class="sync-time" datetime="${esc(state.lastUpdated)}">${time(state.lastUpdated)}</time>
-              <small>${icon('checkcircle')}Últimos registros</small>
-            </div>
-            <p>AEGIS · Versão 1.0</p>
-          </div>
-        </aside>
-        <div class="workspace">
-          <header class="topbar">
-            <button type="button" class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Abrir menu principal" aria-expanded="${menuOpen}" aria-controls="sidebar">${icon('menu')}</button>
-            <form id="global-search-form" class="search-input global-search" role="search" aria-label="Busca geral">${icon('search')}<input class="input" type="search" name="query" aria-label="Buscar alunos ou câmeras" placeholder="Buscar alunos ou câmeras…" maxlength="100" value="${esc(filters.studentQuery && route==='students'?filters.studentQuery:'')}">
-            </form>
-            <div class="topbar-actions">
-              <a class="icon-button settings-shortcut" href="Configuracoes.html" aria-label="Configurações">${icon('settings')}</a>
-              <button type="button" class="icon-button notify" data-action="notifications" aria-label="Ver notificações">${icon('bell')}${state.events.length?`<span class="notification-dot">
-                </span>`:''}</button>
-              <div class="system-status" title="Status do sistema">${icon('cloud')}<span>Sistema online</span>
-              </div>
-              <button type="button" class="profile-button" data-action="profile" aria-label="Abrir perfil da instituição">
-                <span class="avatar">${esc(initials(session.institution))}</span>
-                <span class="profile-label">${esc(session.institution)}<small>Administrador</small>
-                </span>${icon('down')}</button>
-            </div>
-          </header>
-          <main class="main-content" id="main" tabindex="-1" aria-labelledby="page-title">${storageProblem?`<div class="info-box warning">${icon('alert')}<span>Os dados locais não puderam ser carregados. Esta sessão está usando os exemplos iniciais. Verifique o armazenamento do navegador.</span>
-            </div>`:''}${content}</main>
-          <footer class="app-footer">
-            <span>AEGIS · Advanced Educational Guardian Intelligence System</span>
-            <span>
-              <a href="Privacidade.html">Privacidade</a>
-            </span>
-          </footer>
-        </div>
-      </div>`;
+    return shared.renderShell({content, route, session, state, storageProblem, menuOpen});
   }
 
   function renderHelp() {
@@ -169,7 +112,7 @@
           <form method="post" id="help-form" aria-labelledby="help-title" class="help-form">
             <div class="field">
               <label for="help-need">Explique sua necessidade</label>
-              <textarea class="input" id="help-need" name="need" required minlength="10" maxlength="1500" placeholder="Descreva a situação e o que você precisa…" style="height:145px;min-height:145px;resize:none"></textarea>
+              <textarea class="support-message input" id="help-need" name="need" required minlength="10" maxlength="1500" placeholder="Descreva a situação e o que você precisa…"></textarea>
             </div>
             <div class="field">
               <label for="help-institution">Nome da instituição</label>
@@ -188,12 +131,12 @@
               <p>${a}</p>
             </details>`).join('')}</div>
         </section>
-      </div>${state.tickets.length?`<section class="panel panel-pad" style="margin-top:24px" aria-labelledby="tickets-title">
+      </div>${state.tickets.length?`<section class="card-spaced panel panel-pad" aria-labelledby="tickets-title">
         <header class="panel-header">
           <h2 id="tickets-title">Solicitações registradas</h2>
         </header>${state.tickets.slice().reverse().map(t=>`<div class="ticket-row">
           <strong>${esc(t.protocol)}</strong>
-          <span class="badge blue" style="margin-left:10px">Registrada</span>
+          <span class="ticket-status badge blue">Registrada</span>
           <p>${esc(t.need)}</p>
           <small>${esc(t.institution)} · <time datetime="${esc(t.at)}">${dateTime(t.at)}</time>
           </small>
@@ -202,6 +145,7 @@
   function render(options = {}) {
     if (modal.open) closeModal();
     app.innerHTML = renderShell(renderHelp());
+    shared.enhanceTables();
     document.title = "Ajuda e suporte · AEGIS";
     if (options.focus) document.getElementById('main')?.focus({ preventScroll: true });
   }
