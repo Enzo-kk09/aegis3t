@@ -10,7 +10,7 @@
   }
   const { images,imageSource,STORAGE_KEY,SESSION_KEY,icon,esc,normalize,copy,uid,now,time,dateTime,today,dateLabel,initials,validImage,defaultState,brand,demoBadge,badge,photoMarkup,avatar,empty,head,publicHeader,pageFiles,pageHref,pages,sideLinks,cameras } = shared;
   const favicon = document.getElementById('site-icon');
-  if (favicon) { favicon.type = 'image/png'; favicon.href = images['./aegis-logo.png']; }
+  if (favicon) { favicon.type = 'image/svg+xml'; favicon.href = images['./aegis-logo.png']; }
   const app = document.getElementById('app');
   const modal = document.getElementById('modal');
   const loaded = shared.loadState(()=>localStorage);
@@ -67,78 +67,21 @@
   }
 
   function setMenu(open) {
-    menuOpen=open;
-    document.querySelector('.sidebar')?.classList.toggle('open',open);
-    document.querySelector('.sidebar-scrim')?.classList.toggle('visible',open);
-    document.querySelector('.mobile-menu')?.setAttribute('aria-expanded',String(open));
-    document.querySelector(open?'.sidebar .nav-item':'.mobile-menu')?.focus();
+    menuOpen = open;
+    shared.setMenu(open);
   }
 
   function closeModal(){if(modal.open)modal.close();previousFocus?.isConnected&&previousFocus.focus();}
 
   function renderShell(content) {
-    const mainActive=['dashboard','movement','prb','report'].includes(route)?'dashboard':route;
-    return `<div class="app-shell">
-        <button type="button" class="sidebar-scrim ${menuOpen?'visible':''}" data-action="close-menu" aria-label="Fechar menu">
-        </button>
-        <aside class="sidebar ${menuOpen?'open':''}" id="sidebar" aria-label="Navegação e informações da instituição">
-          <button type="button" class="icon-button sidebar-close" data-action="close-menu" aria-label="Fechar menu">${icon('close')}</button>
-          <header class="sidebar-brand">${brand()}</header>
-          <p class="nav-section">Principal</p>
-          <nav class="side-nav" aria-label="Menu principal">${sideLinks.map(([r,i,n])=>`<a class="nav-item ${mainActive===r?'active':''}" href="${pageHref(r)}" ${mainActive===r?'aria-current="page"':''}>${icon(i)}${n}</a>`).join('')}</nav>
-          <div class="side-divider">
-          </div>
-          <p class="nav-section">Desenvolvimento</p>
-          <nav class="side-nav" aria-label="Desenvolvimento"><a class="nav-item" href="DeveloperTest.html"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Developer Test</a></nav>
-          <div class="side-divider"></div>
-          <p class="nav-section">Instituição</p>
-          <nav class="side-nav" aria-label="Administração">
-            <a class="nav-item ${route==='settings'?'active':''}" href="Configuracoes.html" ${route==='settings'?'aria-current="page"':''}>${icon('settings')}Configurações</a>
-            <a class="nav-item ${route==='help'?'active':''}" href="Suporte.html" ${route==='help'?'aria-current="page"':''}>${icon('help')}Ajuda</a>
-          </nav>
-          <div class="sidebar-bottom">
-            <div class="sync-panel">
-              <span class="eyebrow">Última atualização</span>
-              <time class="sync-time" datetime="${esc(state.lastUpdated)}">${time(state.lastUpdated)}</time>
-              <small>${icon('checkcircle')}Últimos registros</small>
-            </div>
-            <p>AEGIS · Versão 1.0</p>
-          </div>
-        </aside>
-        <div class="workspace">
-          <header class="topbar">
-            <button type="button" class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Abrir menu principal" aria-expanded="${menuOpen}" aria-controls="sidebar">${icon('menu')}</button>
-            <form id="global-search-form" class="search-input global-search" role="search" aria-label="Busca geral">${icon('search')}<input class="input" type="search" name="query" aria-label="Buscar alunos ou câmeras" placeholder="Buscar alunos ou câmeras…" maxlength="100" value="${esc(filters.studentQuery && route==='students'?filters.studentQuery:'')}">
-            </form>
-            <div class="topbar-actions">
-              <a class="icon-button settings-shortcut" href="Configuracoes.html" aria-label="Configurações">${icon('settings')}</a>
-              <button type="button" class="icon-button notify" data-action="notifications" aria-label="Ver notificações">${icon('bell')}${state.events.length?`<span class="notification-dot">
-                </span>`:''}</button>
-              <div class="system-status" title="Status do sistema">${icon('cloud')}<span>Sistema online</span>
-              </div>
-              <button type="button" class="profile-button" data-action="profile" aria-label="Abrir perfil da instituição">
-                <span class="avatar">${esc(initials(session.institution))}</span>
-                <span class="profile-label">${esc(session.institution)}<small>Administrador</small>
-                </span>${icon('down')}</button>
-            </div>
-          </header>
-          <main class="main-content" id="main" tabindex="-1" aria-labelledby="page-title">${storageProblem?`<div class="info-box warning">${icon('alert')}<span>Os dados locais não puderam ser carregados. Esta sessão está usando os exemplos iniciais. Verifique o armazenamento do navegador.</span>
-            </div>`:''}${content}</main>
-          <footer class="app-footer">
-            <span>AEGIS · Advanced Educational Guardian Intelligence System</span>
-            <span>
-              <a href="Privacidade.html">Privacidade</a>
-            </span>
-          </footer>
-        </div>
-      </div>`;
+    return shared.renderShell({content, route, session, state, storageProblem, menuOpen});
   }
 
   function cameraName(c) { return c.name || state.students.find(s=>s.id===c.studentId)?.name || 'Cadastro não disponível'; }
 
   function cameraDetail(id) {
     const c=cameras.find(c=>c.id===id);if(!c)return;
-    openModal('Detalhes da identificação',`${photoMarkup(c.photo,'Imagem da identificação','modal-image')}<div class="detail-hero" style="margin-bottom:16px">
+    openModal('Detalhes da identificação',`${photoMarkup(c.photo,'Imagem da identificação','modal-image')}<div class="detail-spaced detail-hero">
         <div>
           <h3>${esc(cameraName(c))}</h3>
           <p>${esc(c.location)} · ${c.at}</p>
@@ -152,84 +95,40 @@
   }
 
   function cameraCards() {
-    const selected = cameras.filter(c =>
-      (filters.camera === 'all' || c.id === filters.camera) &&
-      (filters.status === 'all' || c.status === filters.status)
+    const selected = cameras.filter(camera =>
+      (filters.camera === 'all' || camera.id === filters.camera) &&
+      (filters.status === 'all' || camera.status === filters.status)
     );
-    if (!selected.length) return `<div class="panel span-2">${empty('Nenhum registro encontrado','Altere os filtros para consultar os pontos de acesso.','camera')}</div>`;
-    return selected.map(c => `
-      <article class="panel camera-card" aria-labelledby="camera-title-${c.id}">
-        <figure class="camera-visual">
-          ${photoMarkup(c.photo, `Imagem da câmera em ${c.location}`, 'camera-image')}
-          <span class="camera-code">${c.id.toUpperCase()}</span>
-          <figcaption class="camera-overlay">${icon('camera')}CÂMERA</figcaption>
-        </figure>
-        <div class="camera-body">
-          <header class="camera-top">
-            <h2 id="camera-title-${c.id}">${esc(c.location)}</h2>${icon('camera')}</header>
-          <p class="student-name">${esc(cameraName(c))}</p>
-          ${badge(c.status)}
-          <p class="camera-bottom">${icon('clock')}Registro às <time datetime="${c.at}">${c.at}</time>
-          </p>
-        </div>
-        <button type="button" class="camera-detail" data-action="camera-detail" data-id="${c.id}" aria-label="Ver identificação em ${esc(c.location)}">
-          <span class="visually-hidden">Ver identificação em ${esc(c.location)}</span>
-        </button>
-      </article>`).join('');
+    if (!selected.length) return `<section class="panel">${empty('Nenhum ponto encontrado', 'Limpe os filtros para ver os pontos de acesso.', 'camera')}</section>`;
+    return selected.map(camera => `<article class="panel access-card" aria-labelledby="camera-title-${camera.id}">
+      <header class="access-heading"><span class="access-symbol">${icon(camera.id === 'cam04' ? 'file' : 'camera')}</span><div><h3 id="camera-title-${camera.id}">${esc(camera.location)}</h3><p>${camera.id.toUpperCase()} · Última identificação</p></div></header>
+      <div class="access-meta">${badge(camera.status)}<time datetime="${camera.at}">${camera.at.slice(0,5)}</time></div>
+      <button type="button" class="camera-detail" data-action="camera-detail" data-id="${camera.id}" aria-label="Ver identificação em ${esc(camera.location)}"></button>
+    </article>`).join('');
   }
 
   function renderDashboard() {
-    return `${head('Dados gerais',pages.dashboard[1],'',session.institution)}${tabs()}<div class="toolbar">
-        <select class="input" id="camera-select" aria-label="Selecionar câmera">
-          <option value="all">Todas as câmeras</option>${cameras.map(c=>`<option value="${c.id}" ${filters.camera===c.id?'selected':''}>${esc(c.location)}</option>`).join('')}</select>
-        <div class="segmented grow" role="group" aria-label="Período de consulta">${[['today','Hoje'],['week','7 dias'],['month','30 dias']].map(([value,label])=>`<button type="button" class="${filters.period===value?'active':''}" data-action="period" data-value="${value}" aria-pressed="${filters.period===value}">${label}</button>`).join('')}</div>
-        <button type="button" class="btn small" data-action="camera-filters">${icon('filter')}Filtros${filters.status!=='all'?`<span class="status-dot">
-          </span>`:''}</button>
-      </div>
-      <section class="camera-grid" aria-label="Identificações por câmera">${cameraCards()}</section>
-      <p class="section-caption">${icon('info')}${filters.period==='today'?'Último registro':'Último registro no período selecionado'} por câmera</p>
-      <div class="dashboard-bottom">
-        <section class="panel panel-pad" aria-labelledby="activity-title">
-          <header class="panel-header">
-            <h2 id="activity-title">Atividade recente</h2>
-            <a href="Identificacoes.html">Ver identificações</a>
-          </header>
-          <ul class="activity-list">${[["confirmed","Identificação confirmada","Roberto Almeida · Corredor B","12:58"],["unknown","Pessoa não identificada","Entrada principal · revisão recomendada","12:43"],["uncertain","Identificação incerta","Gabriel Pereira · Biblioteca","13:50"]].map(([s,t,d,at])=>`<li class="activity-row">
-              <span class="activity-icon ${s==='unknown'?'danger':s==='uncertain'?'warning':''}">${icon(s==='confirmed'?'checkcircle':s==='unknown'?'alert':'help')}</span>
-              <div class="activity-text">
-                <strong>${t}</strong>
-                <p>${d}</p>
-              </div>
-              <time datetime="${at}">${at}</time>
-            </li>`).join('')}</ul>
-        </section>
-        <section class="panel panel-pad" aria-labelledby="quick-title">
-          <header class="panel-header">
-            <h2 id="quick-title">Acesso rápido</h2>
-          </header>
-          <nav class="quick-actions" aria-label="Acesso rápido">
-            <a class="quick-action" href="Movimentacao.html">${icon('move')}<div>
-                <strong>Movimentação dos alunos</strong>
-                <small>Entradas, saídas e observações</small>
-              </div>
-            </a>
-            <a class="quick-action" href="Alunos.html">${icon('users')}<div>
-                <strong>Gerenciar alunos</strong>
-                <small>Cadastros e turmas da instituição</small>
-              </div>
-            </a>
-            <a class="quick-action" href="PRB.html">${icon('shield')}<div>
-                <strong>Acessar área PRB</strong>
-                <small>Consulta com autorização</small>
-              </div>
-            </a>
-          </nav>
-        </section>
-      </div>`;
+    const recent = [...cameras].sort((a,b) => b.at.localeCompare(a.at));
+    return `${head('Dados gerais', 'Visão geral dos pontos de acesso e dos registros da instituição.', '', session.institution)}
+      <section aria-labelledby="access-title">
+        <header class="section-heading"><h2 id="access-title">Pontos de acesso</h2><button type="button" class="btn small ghost" data-action="camera-filters" aria-label="Filtrar pontos de acesso">${icon('filter')}Filtrar${filters.status !== 'all' ? '<span class="status-dot"></span>' : ''}</button></header>
+        ${filters.camera !== 'all' ? `<div class="toolbar"><label class="visually-hidden" for="camera-select">Selecionar ponto de acesso</label><select class="input" id="camera-select"><option value="all">Todos os pontos</option>${cameras.map(camera => `<option value="${camera.id}" ${filters.camera === camera.id ? 'selected' : ''}>${esc(camera.location)}</option>`).join('')}</select></div>` : ''}
+        <div class="access-grid">${cameraCards()}</div>
+      </section>
+      <section class="dashboard-activity" aria-labelledby="activity-title">
+        <header class="section-heading"><h2 id="activity-title">Atividade recente</h2><a href="Identificacoes.html">Ver todas ${icon('chevron')}</a></header>
+        <div class="panel table-panel"><div class="table-scroll"><table>
+          <caption class="visually-hidden">Última identificação registrada em cada ponto de acesso</caption>
+          <thead><tr><th scope="col">Horário</th><th scope="col">Ponto de acesso</th><th scope="col">Identificação</th><th scope="col">Resultado</th><th scope="col"><span class="visually-hidden">Detalhes</span></th></tr></thead>
+          <tbody>${recent.map(camera => `<tr><td><time datetime="${camera.at}">${camera.at}</time></td><td>${esc(camera.location)}</td><td>${esc(cameraName(camera))}</td><td>${badge(camera.status)}</td><td><button type="button" class="icon-button" data-action="camera-detail" data-id="${camera.id}" aria-label="Ver registro em ${esc(camera.location)}">${icon('chevron')}</button></td></tr>`).join('')}</tbody>
+        </table></div></div>
+        <p class="dashboard-note">${icon('clock')}Os horários correspondem aos últimos registros disponíveis.</p>
+      </section>`;
   }
   function render(options = {}) {
     if (modal.open) closeModal();
     app.innerHTML = renderShell(renderDashboard());
+    shared.enhanceTables();
     document.title = "Dados gerais · AEGIS";
     if (options.focus) document.getElementById('main')?.focus({ preventScroll: true });
   }
