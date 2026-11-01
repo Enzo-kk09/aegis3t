@@ -118,7 +118,7 @@
               <label for="help-institution">Nome da instituição</label>
               <input class="input" id="help-institution" name="institution" required maxlength="100" value="${esc(session.institution)}">
             </div>
-            <p class="form-error"></p>
+            <p class="form-error" role="alert"></p>
             <button type="submit" class="btn primary">Registrar solicitação</button>
           </form>
         </section>

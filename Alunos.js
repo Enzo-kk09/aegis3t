@@ -125,7 +125,7 @@
             <input type="checkbox" name="removePhoto">
             <span>Remover foto atual</span>
           </label>`:''}</div>
-        <p class="form-error span-2"></p>
+        <p class="form-error span-2" role="alert"></p>
         <div class="modal-actions span-2">
           <button class="btn" type="button" data-action="close-modal">Cancelar</button>
           <button class="btn primary" type="submit">${icon('save')}${id?'Salvar alterações':'Cadastrar aluno'}</button>
@@ -171,7 +171,7 @@
     const list=state.students.filter(s=>(!query||normalize(s.name+' '+s.enrollment+' '+s.className).includes(query))&&(filters.studentStatus==='all'||s.status===filters.studentStatus)&&(filters.className==='all'||s.className===filters.className));
     const active=state.students.filter(s=>s.status==='active').length;
     const classes=[...new Set(state.students.map(s=>s.className))].sort();
-    return `${head('Alunos',pages.students[1],`<button type="button" class="btn primary" data-action="new-student">${icon('plus')}Novo aluno</button>`)}${stats([['Alunos cadastrados',state.students.length,'','users','Total de cadastros'],['Ativos',active,'success','checkcircle','Alunos com cadastro ativo'],['Inativos',state.students.length-active,'warning','user','Alunos com cadastro inativo'],['Turmas registradas',classes.length,'','grid','Turmas com alunos cadastrados']])}<div class="toolbar">
+    return `${head('Alunos',pages.students[1],`<button type="button" class="btn primary" data-action="new-student">${icon('plus')}Novo aluno</button>`)}${stats([['Alunos cadastrados',state.students.length,'','users',''],['Ativos',active,'success','checkcircle',''],['Inativos',state.students.length-active,'warning','user',''],['Turmas registradas',classes.length,'','grid','']])}<div class="toolbar">
         <form id="student-search" class="search-input" role="search" aria-label="Busca de alunos">${icon('search')}<input class="input" type="search" name="query" placeholder="Buscar aluno ou matrícula…" aria-label="Buscar aluno" value="${esc(filters.studentQuery)}" maxlength="100">
         </form>
         <select id="student-class" class="input" aria-label="Filtrar turma">

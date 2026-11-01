@@ -121,7 +121,7 @@
               <label for="consult-responsible">Responsável pela consulta</label>
               <input class="input" id="consult-responsible" name="responsible" required maxlength="100" value="${esc(session.institution)}">
             </div>
-            <p class="form-error"></p>
+            <p class="form-error" role="alert"></p>
             <button class="btn primary" type="submit">Registrar consulta</button>
           </form>
         </section>
@@ -161,7 +161,7 @@
               </div>
               <span class="badge success">Obrigatória</span>
             </div>
-            <p class="form-error"></p>
+            <p class="form-error" role="alert"></p>
             <button type="submit" class="btn primary">${icon('save')}Salvar preferências</button>
           </form>
         </section>

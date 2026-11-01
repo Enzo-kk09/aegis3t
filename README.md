@@ -6,8 +6,8 @@ O sistema permite consultar identificações, acompanhar movimentações, gerenc
 
 ## Acesso
 
-- Prévia do redesenho: https://aegis3t-9i7a8naua-enzo28calegaro-4701.vercel.app/
-- Proposta de atualização: https://github.com/Enzo-kk09/aegis3t/pull/1
+- Atualização visual e prévia atual: [PR #1](https://github.com/Enzo-kk09/aegis3t/pull/1).
+- Evidências e procedimento de teste: [revisão visual](docs/visual-review.md).
 - Repositório público: https://github.com/Enzo-kk09/aegis3t
 - Instituição para teste: `CIMOL`
 - Senha de acesso: `AEGIS2026`
@@ -19,11 +19,11 @@ Este é um frontend acadêmico. A sessão e os cadastros são armazenados no nav
 
 | Critério | Implementação e verificação |
 | --- | --- |
-| Deploy e funcionamento | HTML, CSS, JavaScript e imagens com caminhos relativos. As referências locais das 13 páginas foram verificadas. A prévia do redesenho foi publicada na Vercel e respondeu HTTP 200. Ela usa a proteção padrão da conta Vercel; a integração à main e a publicação final continuam pendentes de revisão. |
+| Deploy e funcionamento | HTML, CSS, JavaScript e imagens com caminhos relativos. As referências das 13 páginas foram verificadas. A prévia usa a proteção padrão da conta Vercel e está vinculada ao PR #1. A integração à main permanece para revisão. |
 | Interatividade sem recarregamento | Formulários tratados com `preventDefault()`. Cadastro, edição e exclusão de alunos, observações de movimentação e validação PRB verificados em testes de DOM. A navegação entre páginas utiliza um HTML por tela. |
 | Persistência de dados | Cadastros, observações, solicitações e preferências usam `localStorage`; a sessão usa `sessionStorage`. Testes verificam leitura após abrir novamente a página e proteção contra gravações de abas desatualizadas. |
-| Estabilidade do console | Os 25 testes existentes e as verificações locais de inicialização das 13 páginas passaram. O laboratório informa sua dependência local sem tentar conectar automaticamente em hospedagem estática. A revisão final no console de um navegador real permanece pendente por indisponibilidade da ferramenta de navegador nesta execução. |
-| Adaptabilidade, responsividade e acessibilidade | Layouts com grid flexível, menu recolhível, pontos de quebra para celular, tabelas com rolagem interna e acesso por teclado. HTML com `header`, `main`, `aside`, `nav`, `section`, `article` e `footer`, rótulos de campos, descrições de imagens e foco nos diálogos. A revisão visual em múltiplos tamanhos permanece pendente. |
+| Estabilidade do console | Os 25 testes Node.js e 43 cenários no Chromium passaram. As 13 páginas foram renderizadas em cinco resoluções sem erros de JavaScript, mensagens de erro no console ou requisições malsucedidas. O laboratório mantém sua dependência de servidor Python local. |
+| Adaptabilidade, responsividade e acessibilidade | Layouts com grid flexível, menu recolhível, pontos de quebra para celular, tabelas com rolagem interna e acesso por teclado. HTML com `header`, `main`, `aside`, `nav`, `section`, `article` e `footer`, rótulos de campos, descrições de imagens e foco nos diálogos. Foram revisadas 65 combinações de tela e resolução, com 26 verificações axe sem violações automáticas nas regras WCAG A/AA de 2.0 e 2.1. Menu, foco, toque emulado, textos longos e persistência foram verificados; aparelhos físicos e outros navegadores não fazem parte desta execução. |
 
 ## Organização
 
@@ -41,7 +41,7 @@ Os testes existentes podem ser executados com Node.js:
 node --test aegis_shared.test.cjs developer_frontend.test.cjs
 ```
 
-Na atualização visual também foram executadas verificações de DOM com jsdom, análise sintática do CSS e checagem da sintaxe de todos os arquivos JavaScript. Esses testes não substituem a inspeção visual final em desktop e celular.
+A revisão atual inclui análise sintática do CSS e dos JavaScripts, verificação de referências, 65 renderizações, 26 análises axe e 43 cenários de interação no Chromium. Os scripts reproduzíveis, comandos, capturas e limites estão no [relatório de revisão visual](docs/visual-review.md).
 
 ## Pendências acadêmicas fora do código
 

@@ -197,11 +197,10 @@
       </aside>
       <div class="workspace">
         <header class="topbar">
-          <div class="topbar-inner">${brand()}
+          <div class="topbar-inner"><div class="topbar-brand"><button type="button" class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Abrir menu da instituição" aria-expanded="${menuOpen}" aria-controls="sidebar">${icon('menu')}</button>${brand()}</div>
             <nav class="primary-nav" aria-label="Menu principal">${primaryLinks.map(link => navigationLink(link, route)).join('')}</nav>
             <div class="topbar-actions">
               <button type="button" class="profile-button" data-action="profile" aria-label="Abrir perfil de ${esc(session.institution)}">${icon('building')}<span class="profile-label">${esc(session.institution)}</span>${icon('down')}</button>
-              <button type="button" class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Abrir menu da instituição" aria-expanded="${menuOpen}" aria-controls="sidebar">${icon('menu')}</button>
             </div>
           </div>
         </header>
@@ -216,7 +215,9 @@
     drawer.classList.toggle('open', open);
     drawer.inert = !open;
     document.querySelector('.sidebar-scrim')?.classList.toggle('visible', open);
-    document.querySelector('.mobile-menu')?.setAttribute('aria-expanded', String(open));
+    const trigger = document.querySelector('.mobile-menu');
+    trigger?.setAttribute('aria-expanded', String(open));
+    trigger?.setAttribute('aria-label', open ? 'Fechar menu da instituição' : 'Abrir menu da instituição');
     document.body.classList.toggle('menu-open', open);
     const workspace = document.querySelector('.workspace');
     if (workspace) workspace.inert = open;

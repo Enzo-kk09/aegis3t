@@ -71,7 +71,7 @@
   function renderRequest() {
     const stored = state.requests.find(r=>r.protocol===lastProtocol);
     return `<div class="request-page">${publicHeader()}<main id="main" class="request-layout" tabindex="-1" aria-labelledby="request-title">
-          <section class="panel request-card" aria-labelledby="request-title">
+          <section class="request-card" aria-labelledby="request-title">
             <span class="eyebrow muted">Acesso institucional</span>
             <h1 class="control-spaced" id="request-title">Solicitar acesso à plataforma</h1>
             <p class="muted">Preencha os dados da instituição para registrar sua solicitação.</p>
@@ -107,12 +107,12 @@
                 <input type="checkbox" name="consent" required>
                 <span>Li a <a href="Privacidade.html">Política de Privacidade</a>.</span>
               </label>
-              <p class="form-error span-2"></p>
+              <p class="form-error span-2" id="request-error" role="alert"></p>
               <button class="btn primary span-2" type="submit">Registrar solicitação</button>
             </form>
             <p class="form-note" id="request-note">Registro de demonstração, salvo apenas neste navegador.</p>
           </section>
-          <aside class="panel request-status" data-status="${stored?'registered':'waiting'}" tabindex="-1" aria-labelledby="request-status-title" aria-live="polite">${stored?`<div class="status-illustration success">${icon('checkcircle')}</div>
+          <aside class="request-status" data-status="${stored?'registered':'waiting'}" tabindex="-1" aria-labelledby="request-status-title" aria-live="polite">${stored?`<div class="status-illustration success">${icon('checkcircle')}</div>
             <h2 id="request-status-title">Solicitação registrada</h2>
             <p>Seu protocolo está disponível abaixo.</p>
             <dl class="protocol"><dt>Protocolo da solicitação</dt><dd><code>${esc(stored.protocol)}</code></dd></dl>

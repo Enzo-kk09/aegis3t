@@ -105,7 +105,7 @@
             <label for="prb-code">Código de acesso</label>
             <input id="prb-code" class="input prb-code" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" placeholder="······" autocomplete="off" required aria-describedby="prb-hint">
           </div>
-          <p class="form-error"></p>
+          <p class="form-error" role="alert"></p>
           <button class="btn primary" type="submit">${icon('lock')}Validar acesso</button>
         </form>
         <div class="info-box" id="prb-hint">${icon('info')}<span>Informe o código de seis dígitos fornecido pela instituição.</span>
