@@ -38,6 +38,25 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = utilities;
   if (typeof document === 'undefined') return;
 
+  const shared = globalThis.AegisShared;
+  if (shared) {
+    const content = document.querySelector('main').innerHTML;
+    const health = document.getElementById('dev-health-badge').outerHTML;
+    const session = shared.readSession(() => sessionStorage) || {institution:'AEGIS'};
+    document.body.innerHTML = `<a class="skip-link" href="#main">Pular para o conteúdo</a>${shared.renderShell({content, route:'developer', session, state:shared.defaultState()})}`;
+    document.querySelector('main').classList.add('dev-main');
+    document.querySelector('.page-heading').insertAdjacentHTML('beforeend', health);
+    document.querySelector('.mobile-menu').id = 'dev-menu-open';
+    document.querySelector('.sidebar-close').id = 'dev-menu-close';
+    document.querySelector('.sidebar-scrim').id = 'dev-menu-scrim';
+    document.querySelector('.profile-button').replaceWith(Object.assign(document.createElement('a'), {href:'DadosGerais.html', className:'btn small ghost', textContent:'Voltar ao painel'}));
+    document.getElementById('global-search-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const query = new FormData(event.target).get('query');
+      location.assign('Alunos.html?q=' + encodeURIComponent(query || ''));
+    });
+    document.querySelectorAll('.table-scroll').forEach(region => { region.tabIndex = 0; region.setAttribute('role','region'); region.setAttribute('aria-label','Tabela de registros'); });
+  }
   const el = id => document.getElementById('dev-' + id);
   const state = { connected:false, ready:false, token:'', healthPending:false, profiles:[], stream:null, live:false, starting:false, busy:false, imageLoading:false, liveController:null, operationController:null, timer:null, generation:0, enroll:[], image:null, imageBitmap:null, imageURL:null, imageGeneration:0, records:[], lastResult:null, cameraTimes:[], deviceGeneration:0, menuOpen:false };
   const video = el('video');
@@ -457,13 +476,8 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   const setMenu = open => {
-    const wasOpen = state.menuOpen;
     state.menuOpen = open;
-    document.getElementById('sidebar').classList.toggle('open', open);
-    el('menu-scrim').classList.toggle('visible', open);
-    el('menu-open').setAttribute('aria-expanded', String(open));
-    if (open) el('menu-close').focus();
-    else if (wasOpen) el('menu-open').focus();
+    shared?.setMenu(open);
   };
 
   el('menu-open').addEventListener('click', () => setMenu(true));
@@ -472,7 +486,7 @@
   document.addEventListener('keydown', event => {
     if (!state.menuOpen) return;
     if (event.key === 'Escape') { event.preventDefault(); setMenu(false); }
-    if (event.key === 'Tab' && matchMedia('(max-width:760px)').matches) {
+    if (event.key === 'Tab') {
       const items=[...document.getElementById('sidebar').querySelectorAll('a,button')].filter(item=>!item.disabled&&item.getClientRects().length);
       if (event.shiftKey && document.activeElement === items[0]) { event.preventDefault(); items.at(-1)?.focus(); }
       else if (!event.shiftKey && document.activeElement === items.at(-1)) { event.preventDefault(); items[0]?.focus(); }
@@ -538,10 +552,18 @@
   video.addEventListener('resize', () => { if (video.videoWidth && video.videoHeight) el('camera-stage').style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`; });
   window.addEventListener('pagehide', () => { stopLive(); state.operationController?.abort(); clearEnroll(); clearImage(); });
   navigator.mediaDevices?.addEventListener?.('devicechange', () => mediaDevices().catch(() => {}));
-  try {
-    const session = JSON.parse(sessionStorage.getItem('aegis.demo.session') || 'null');
-    if (typeof session?.institution === 'string' && session.institution.trim() && session.institution.length <= 80) el('avatar').textContent = session.institution.trim().split(/\s+/).slice(0,2).map(word => word[0]).join('').toUpperCase();
-  } catch {}
-  mediaDevices().catch(() => {});
-  health();
+  const localLaboratory = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+  if (localLaboratory) {
+    mediaDevices().catch(() => {});
+    health();
+  } else {
+    el('health-badge').dataset.status = 'offline';
+    el('health-label').textContent = 'Servidor local necessário';
+    el('setup').hidden = false;
+    el('setup-message').textContent = 'O laboratório utiliza o servidor Python local. Os cadastros e as demais telas funcionam normalmente neste site.';
+    el('reconnect').disabled = true;
+    el('reconnect').title = 'Abra o laboratório pelo servidor local para conectar.';
+    el('profile-count').textContent = '—';
+    controls();
+  }
 })();
