@@ -16,4 +16,4 @@ ADAPTABILIDADE, RESPONSIVIDADE E ACESSIBILIDADE:
  O HTML possui meta viewport e o CSS usa media queries para reorganizar menus, grades e formulários em diferentes larguras. Há textos alternativos em imagens informativas, rótulos nos campos, elementos HTML semânticos, atributos ARIA, link para pular ao conteúdo e indicação visual de foco para navegação por teclado.
 
 FEEDBACKS:
- Foi testado com um total de 20 pessoas (turma), onde foi apresentado todas as telas, o problema foi pertinente e único, a poluição visual. Onde foi de uma certa forma arrumado todas as telas visualmente, com um foco na tela de login, atribuindo uma novo logo, interface e reestruturação de paleta de cores.
+ Foi testado com um total de 18 pessoas (turma), onde foi apresentado todas as telas, o problema foi pertinente e único, a poluição visual. Onde foi de uma certa forma arrumado todas as telas visualmente, com um foco na tela de login, atribuindo uma novo logo, interface e reestruturação de paleta de cores.
