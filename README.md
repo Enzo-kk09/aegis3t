@@ -1,19 +1,11 @@
 Link Git Pages: https://enzo-kk09.github.io/aegis3t/
 
-DEPLOY E FUNCIONAMENTO:
- O projeto atual está com todas as telas funcionando, sem dar erro (404) ou tela branca.
+## Checklist dos Critérios de Avaliação
 
-INTERATIVIDADE SEM RECARREGAMENTO:
- Os formulários usam eventos JavaScript e event.preventDefault() para impedir o envio padrão.
-
-PERSISTÊNCIA E DADOS:
- A aplicação salva informações no localStorage e recupera esses dados ao abrir as páginas. Nos testes da tela de Alunos e de Configurações, os registros e suas alterações permaneceram após atualizar a página com F5; os itens excluídos continuaram removidos após atualizar.
-
-ESTABILIDADE DO CONSOLE:
- Identificados nos testes realizados	O código possui validações de formulários e tratamento de falhas em operações de armazenamento. Não foram identificados erros do site durante a navegação por todas as telas.
-
-ADAPTABILIDADE, RESPONSIVIDADE E ACESSIBILIDADE:
- O HTML possui meta viewport e o CSS usa media queries.
-  
-FEEDBACKS:
- Foi testado com um total de 18 pessoas (turma), onde foi apresentado todas as telas, o problema foi pertinente e único, a poluição visual. Onde foi de uma certa forma arrumado todas as telas visualmente, com um foco na tela de login, atribuindo uma novo logo, interface e reestruturação de paleta de cores.
+| Critério | Como o AEGIS atende ao requisito |
+|---|---|
+| **1. Deploy e Funcionamento** | A aplicação está publicada por meio do GitHub Pages, permitindo o acesso direto pelo navegador. Os arquivos HTML, CSS e JavaScript estão organizados para garantir o carregamento correto das páginas e dos recursos do sistema. |
+| **2. Interatividade sem Recarregamento** | As interações são realizadas por meio de JavaScript, utilizando o método `preventDefault()` para impedir o comportamento padrão dos formulários. Dessa forma, operações de cadastro, edição e remoção são processadas dinamicamente, sem a necessidade de recarregar a página. |
+| **3. Persistência de Dados** | O sistema utiliza o `localStorage` para armazenar informações no próprio navegador. Os dados registrados e as alterações realizadas podem ser recuperados após a atualização da página, mantendo a continuidade das operações. |
+| **4. Estabilidade do Console** | O código possui validações para o tratamento das operações e do armazenamento de dados. A estabilidade da aplicação deve ser verificada por meio de testes de navegação e interação com as funcionalidades, utilizando o Console das ferramentas de desenvolvedor do navegador. |
+| **5. Adaptabilidade e Responsividade** | A interface utiliza a meta tag `viewport` e regras de CSS com media queries para adaptar a disposição dos elementos a diferentes tamanhos de tela. Também são utilizados recursos de HTML semântico, identificação de campos e elementos de acessibilidade para facilitar a navegação e a compreensão da interface. |
